@@ -1,19 +1,22 @@
-# 🎈 Blank app template
+import streamlit as st
 
-A simple Streamlit app template for you to modify!
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+def button_click(col):
+    speech_container.audio(speechArr[col], format='audio/mpeg')
 
-### How to run it on your own machine
 
-1. Install the requirements
+st.title("Soundboard App")
+st.subheader("Click on a person's name to hear a speech by that person")
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+names = ['Martin Luther King', 'Kamala Harris', 'Ketanji Brown Jackson']
+imgArr = ['assets/mlk.jpg', 'assets/kamalaharris.png', 'assets/brownjackson.jpg']
+speechArr = ['assets/mlk.mp3', 'assets/kamala.mp3', 'assets/brownjackson.mp3']
 
-2. Run the app
+cols = st.columns(3)
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+for c in range(0,len(names)):
+    cols[c].image(imgArr[c])
+    cols[c].button(names[c], on_click=button_click, args=(c,),use_container_width=True )
+
+speech_container = st.container(border=True)
+speech_container.write('Audio: ')
